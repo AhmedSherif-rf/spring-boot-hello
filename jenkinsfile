@@ -5,7 +5,10 @@ pipeline {
     stage('Build Docker Image') {
       steps {
         script {
-          def dockerImage = docker.build('my-docker-image')
+           withCredentials([usernamePassword(credentialsId: 'dockerhub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]){
+                        sh 'docker build -t ahmedsherifmo/spring-hello:mvn-2.0 .'
+                        sh "echo ${PASS} | docker login -u ${USER} --password-stdin"
+                        sh 'docker push ahmedsherifmo/maven-app:mvn-2.0'
         }
       }
     }
