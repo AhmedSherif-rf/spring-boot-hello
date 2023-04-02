@@ -1,13 +1,11 @@
 pipeline {
   agent any
-
+  
   stages {
-    stage('Docker version') {
+    stage('Build Docker Image') {
       steps {
         script {
-          docker.withVersion('1.39') {
-            sh 'docker version'
-          }
+          def dockerImage = docker.build('my-docker-image')
         }
       }
     }
