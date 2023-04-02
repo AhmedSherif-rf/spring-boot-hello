@@ -1,13 +1,13 @@
 pipeline {
   agent any
-  
+
   stages {
-    stage('Build Docker Image') {
+    stage('Docker version') {
       steps {
         script {
-         docker.withVersion('1.39') {
-            sh 'docker version' }
-          def dockerImage = docker.build('my-hello-spring')
+          docker.withVersion('1.39') {
+            sh 'docker version'
+          }
         }
       }
     }
