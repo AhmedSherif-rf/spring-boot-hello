@@ -5,6 +5,9 @@ pipeline {
     stage('Build Docker Image') {
       steps {
         script {
+          def dockerPlugin = Jenkins.instance.pluginManager.plugins.find { it.shortName == 'docker-plugin' }
+          def version = dockerPlugin?.version
+          echo "Docker plugin version: ${version}"
           def dockerImage = docker.build('my-docker-image')
         }
       }
